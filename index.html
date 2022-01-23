@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        body {
+            text-align: center;
+            font-family: Helvetica Neue, sans-serif;
+            font-size: large;
+            font-weight: bold;
+        }
+        #app, #next-card {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        #next-card {
+            margin: 0 auto;
+            width: 100px;
+            height: 200px;
+            border: 1px solid #222;
+        }
+        .card {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 10px;
+            width: 100px;
+            height: 200px;
+            border: 1px solid #222;
+        }
+
+    </style>
+</head>
+<body>
+<div id="app">
+    <div id="cash"></div>
+    <div class="first-card card"></div>
+    <div class="second-card card"></div>
+</div>
+
+<div id="next-card"></div>
+
+<input type="number" class="bet-amount" value="0" min="0" max="100">
+<button>Bet</button>
+
+<script src="src/index.js"></script>
+</body>
+</html>
