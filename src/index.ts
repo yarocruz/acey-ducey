@@ -19,7 +19,7 @@ function dealInitialCards() {
     if (firstRandomIndex >= 11) {
         // we want to get a slice of the cards array if the index selects a 13 or 14, (index 12 or 13)
         // from the beginning of the array up the that index - 1 so it will skip
-        let cardSlice = cards.slice(0, firstRandomIndex - 1) // if that first index is 13, then the cardSlice is going to be [2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14]
+        let cardSlice = cards.slice(0, firstRandomIndex - 1) // if that first index is the number 13(index 11), then the cardSlice is going to be [2, 3, 4, 5, 6, 7, 8, 9, 10, 11]
         let secondRandomIndex = Math.floor((Math.random() * cardSlice.length + 1) - 1)
         firstCard.textContent = cards[firstRandomIndex];
         secondCard.textContent = cardSlice[secondRandomIndex]
@@ -72,7 +72,7 @@ function checkBetResult() {
         }
     }
 
-    // Giving some time after placing to to deal new cards
+    // Giving some time after placing bet to to deal new cards
     setTimeout(() => {
         initialCards = dealInitialCards()
     }, 2000)
