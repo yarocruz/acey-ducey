@@ -20,7 +20,10 @@ The original program author was Bill Palmby of Prairie View, Illinois.
 - [x] set initial cash user
 - [x] create fn for betting
 - [x] create basic ui with html
-- [ ] Make cards into interfaces in TypeScript
-- [ ] Find deck of card images
+- [x] Make cards into interfaces in TypeScript
+- [x] Find deck of card images
+- [ ] Add a win situation(e.g. if cash is >= 500)
+- [ ] Restart or reload after losing all cash
+- [x] add second page explaining the rules
 
 

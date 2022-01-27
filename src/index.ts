@@ -1,10 +1,8 @@
 import {clubs, diamonds, hearts, spades} from "./cards.js";
 let cash = 100;
 
-console.log(clubs[0].name)
-
 let cashAmount = document.getElementById("cash")!;
-cashAmount.textContent = `$${cash.toString()}`
+cashAmount.textContent = `CASH: $${cash.toString()}`
 
 let firstCard:HTMLImageElement = document.querySelector(".first-card")!;
 let secondCard:HTMLImageElement = document.querySelector(".second-card")!;
@@ -69,25 +67,28 @@ function isGameOver(): boolean {
 }
 
 function checkBetResult() {
-    let nextCard = dealNextCard()
+    let next = dealNextCard()
     let amount = bet()
 
-    if (nextCard > initialCards[0] && nextCard < initialCards[1] ||
-        nextCard < initialCards[0] && nextCard > initialCards[1]
+    if (next > initialCards[0] && next < initialCards[1] ||
+        next < initialCards[0] && next > initialCards[1]
     ) {
         cash += amount
         cashAmount.textContent = `$${cash.toString()}`
-    } else if (nextCard === initialCards[0] || nextCard === initialCards[1]) {
+    } else if (next === initialCards[0] || next === initialCards[1]) {
         cash -= amount * 2
         cashAmount.textContent = `$${cash.toString()}`
         if (isGameOver()) {
             alert("Game Over")
+            cash = 100
         }
+
     } else {
         cash -= amount
         cashAmount.textContent = `$${cash.toString()}`
         if (isGameOver()) {
             alert("Game Over")
+            cash = 100
         }
     }
 
@@ -95,6 +96,11 @@ function checkBetResult() {
     setTimeout(() => {
         initialCards = dealInitialCards()
     }, 2000)
+
+    // Give the nextCard the back card image after a few milliseconds
+    setTimeout(() => {
+        nextCard.src = 'cards/back_of_card.png'
+    }, 3000)
 }
 
 betButton.addEventListener('click', checkBetResult)

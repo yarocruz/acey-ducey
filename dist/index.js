@@ -1,8 +1,7 @@
 import { clubs, diamonds, hearts, spades } from "./cards.js";
 var cash = 100;
-console.log(clubs[0].name);
 var cashAmount = document.getElementById("cash");
-cashAmount.textContent = "$".concat(cash.toString());
+cashAmount.textContent = "CASH: $".concat(cash.toString());
 var firstCard = document.querySelector(".first-card");
 var secondCard = document.querySelector(".second-card");
 var nextCard = document.querySelector("#next-card");
@@ -53,18 +52,19 @@ function isGameOver() {
     return cash <= 0;
 }
 function checkBetResult() {
-    var nextCard = dealNextCard();
+    var next = dealNextCard();
     var amount = bet();
-    if (nextCard > initialCards[0] && nextCard < initialCards[1] ||
-        nextCard < initialCards[0] && nextCard > initialCards[1]) {
+    if (next > initialCards[0] && next < initialCards[1] ||
+        next < initialCards[0] && next > initialCards[1]) {
         cash += amount;
         cashAmount.textContent = "$".concat(cash.toString());
     }
-    else if (nextCard === initialCards[0] || nextCard === initialCards[1]) {
+    else if (next === initialCards[0] || next === initialCards[1]) {
         cash -= amount * 2;
         cashAmount.textContent = "$".concat(cash.toString());
         if (isGameOver()) {
             alert("Game Over");
+            cash = 100;
         }
     }
     else {
@@ -72,12 +72,17 @@ function checkBetResult() {
         cashAmount.textContent = "$".concat(cash.toString());
         if (isGameOver()) {
             alert("Game Over");
+            cash = 100;
         }
     }
     // Giving some time after placing bet to to deal new cards
     setTimeout(function () {
         initialCards = dealInitialCards();
     }, 2000);
+    // Give the nextCard the back card image after a few milliseconds
+    setTimeout(function () {
+        nextCard.src = 'cards/back_of_card.png';
+    }, 3000);
 }
 betButton.addEventListener('click', checkBetResult);
 //# sourceMappingURL=index.js.map
