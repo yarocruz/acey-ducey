@@ -34,16 +34,18 @@ function dealInitialCards() {
         firstCard.src = suit[suitRandomIndex1][firstRandomIndex].img
 
         secondCard.textContent = cardSlice[secondRandomIndex].value
-        secondCard.src = cardSlice[secondRandomIndex].img
+        let img2 = suit[suitRandomIndex2].filter(card => card.value === cardSlice[secondRandomIndex].value)
+        secondCard.src = img2[0].img
     } else {
         let cardSlice = suit[suitRandomIndex1].slice(firstRandomIndex + 2)
-        let secondRandomIndex = Math.floor((Math.random() * cardSlice.length))
+        let secondRandomIndex = Math.floor((Math.random() * cardSlice.length + 1) - 1)
 
         firstCard.textContent = cards[firstRandomIndex];
         firstCard.src = suit[suitRandomIndex1][firstRandomIndex].img
 
         secondCard.textContent = cardSlice[secondRandomIndex].value
-        secondCard.src = cardSlice[secondRandomIndex].img
+        let img2 = suit[suitRandomIndex2].filter(card => card.value === cardSlice[secondRandomIndex].value)
+        secondCard.src = img2[0].img
     }
 
     return [Number(firstCard.textContent), Number(secondCard.textContent)]
