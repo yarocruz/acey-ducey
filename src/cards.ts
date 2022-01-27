@@ -1,4 +1,6 @@
-interface Card { name: string; img: string;
+interface Card {
+    name: string;
+    img: string;
     value: string;
 }
 

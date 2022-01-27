@@ -17,33 +17,33 @@ let suit = [clubs, diamonds, hearts, spades]
 let cards = ['2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12', '13', '14']
 
 function dealInitialCards() {
-    // selects an index between 0 - 13, based on cards array length
+    // for the suits, we select an index from 0 to 3
     let suitRandomIndex1 = Math.floor(Math.random() * suit.length + 1) - 1
     let suitRandomIndex2 = Math.floor(Math.random() * suit.length + 1) - 1
 
-
+    // selects an index between 0 - 12, based on cards array length
     let firstRandomIndex = Math.floor(Math.random() * cards.length + 1) - 1
 
     if (firstRandomIndex >= 11) {
         // we want to get a slice of the cards array if the index selects a 13 or 14, (index 12 or 13)
         // from the beginning of the array up the that index - 1 so it will skip
-        let cardSlice = cards.slice(0, firstRandomIndex - 1) // if that first index is the number 13(index 11), then the cardSlice is going to be [2, 3, 4, 5, 6, 7, 8, 9, 10, 11]
+        let cardSlice = suit[suitRandomIndex1].slice(0, firstRandomIndex - 1) // if that first index is the number 13(index 11), then the cardSlice is going to be [2, 3, 4, 5, 6, 7, 8, 9, 10, 11]
         let secondRandomIndex = Math.floor((Math.random() * cardSlice.length + 1) - 1)
 
         firstCard.textContent = suit[suitRandomIndex1][firstRandomIndex].value;
         firstCard.src = suit[suitRandomIndex1][firstRandomIndex].img
 
-        secondCard.textContent = cardSlice[secondRandomIndex]
-        secondCard.src = suit[suitRandomIndex2][secondRandomIndex].img
+        secondCard.textContent = cardSlice[secondRandomIndex].value
+        secondCard.src = cardSlice[secondRandomIndex].img
     } else {
-        let cardSlice = cards.slice(firstRandomIndex + 2)
+        let cardSlice = suit[suitRandomIndex1].slice(firstRandomIndex + 2)
         let secondRandomIndex = Math.floor((Math.random() * cardSlice.length))
 
         firstCard.textContent = cards[firstRandomIndex];
         firstCard.src = suit[suitRandomIndex1][firstRandomIndex].img
 
-        secondCard.textContent = cardSlice[secondRandomIndex]
-        secondCard.src = suit[suitRandomIndex2][secondRandomIndex].img
+        secondCard.textContent = cardSlice[secondRandomIndex].value
+        secondCard.src = cardSlice[secondRandomIndex].img
     }
 
     return [Number(firstCard.textContent), Number(secondCard.textContent)]
