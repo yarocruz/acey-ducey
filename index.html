@@ -7,6 +7,7 @@
         body {
             text-align: center;
             font-family: Helvetica Neue, sans-serif;
+            background-color: green;
             font-size: large;
             font-weight: bold;
         }
@@ -29,6 +30,7 @@
             width: 100px;
             height: 200px;
             border: 1px solid #222;
+            /*background-image: url("cards/2_of_clubs.png");*/
         }
 
     </style>
@@ -36,8 +38,8 @@
 <body>
 <div id="app">
     <div id="cash"></div>
-    <div class="first-card card"></div>
-    <div class="second-card card"></div>
+    <img class="first-card card" src="" alt="2">
+    <img class="second-card card" src="" alt="2">
 </div>
 
 <div id="next-card"></div>
@@ -45,6 +47,8 @@
 <input type="number" class="bet-amount" value="0" min="0" max="100">
 <button>Bet</button>
 
-<script src="src/index.js"></script>
+<script type="module" src="./dist/cards.js"></script>
+<script type="module" src="./dist/index.js"></script>
+
 </body>
 </html>
