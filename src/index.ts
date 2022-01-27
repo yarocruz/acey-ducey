@@ -8,7 +8,7 @@ cashAmount.textContent = `$${cash.toString()}`
 
 let firstCard:HTMLImageElement = document.querySelector(".first-card")!;
 let secondCard:HTMLImageElement = document.querySelector(".second-card")!;
-let nextCard = document.getElementById("next-card")!;
+let nextCard:HTMLImageElement = document.querySelector("#next-card")!;
 let betAmount: HTMLInputElement = document.querySelector(".bet-amount")!;
 let betButton = document.querySelector("button")!;
 
@@ -56,6 +56,7 @@ let initialCards = dealInitialCards()
 function dealNextCard() {
     let randIndex = Math.floor(Math.random() * cards.length + 1) - 1
     nextCard.textContent = cards[randIndex]
+    nextCard.src = suit[Math.floor(Math.random() * suit.length + 1) - 1][randIndex].img
     return Number(nextCard.textContent)
 }
 

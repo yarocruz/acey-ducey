@@ -5,7 +5,7 @@ var cashAmount = document.getElementById("cash");
 cashAmount.textContent = "$".concat(cash.toString());
 var firstCard = document.querySelector(".first-card");
 var secondCard = document.querySelector(".second-card");
-var nextCard = document.getElementById("next-card");
+var nextCard = document.querySelector("#next-card");
 var betAmount = document.querySelector(".bet-amount");
 var betButton = document.querySelector("button");
 // based on poker rank values
@@ -43,6 +43,7 @@ var initialCards = dealInitialCards();
 function dealNextCard() {
     var randIndex = Math.floor(Math.random() * cards.length + 1) - 1;
     nextCard.textContent = cards[randIndex];
+    nextCard.src = suit[Math.floor(Math.random() * suit.length + 1) - 1][randIndex].img;
     return Number(nextCard.textContent);
 }
 function bet() {
