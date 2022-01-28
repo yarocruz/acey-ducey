@@ -6,7 +6,9 @@ var firstCard = document.querySelector(".first-card");
 var secondCard = document.querySelector(".second-card");
 var nextCard = document.querySelector("#next-card");
 var betAmount = document.querySelector(".bet-amount");
-var betButton = document.querySelector("button");
+var betButton = document.querySelector(".bet-button");
+var noBetButton = document.querySelector(".no-bet-button");
+var restartButton = document.querySelector(".restart");
 // based on poker rank values
 var suit = [clubs, diamonds, hearts, spades];
 var cards = ['2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12', '13', '14'];
@@ -51,28 +53,38 @@ function bet() {
 function isGameOver() {
     return cash <= 0;
 }
+function isWinner() {
+    return cash >= 500;
+}
 function checkBetResult() {
     var next = dealNextCard();
     var amount = bet();
+    if (amount < 0 || amount > cash) {
+        alert("You don't have enough cash!");
+        return;
+    }
     if (next > initialCards[0] && next < initialCards[1] ||
         next < initialCards[0] && next > initialCards[1]) {
         cash += amount;
-        cashAmount.textContent = "$".concat(cash.toString());
+        cashAmount.textContent = "CASH: $".concat(cash.toString());
+        if (isWinner()) {
+            alert("You won game");
+        }
     }
     else if (next === initialCards[0] || next === initialCards[1]) {
         cash -= amount * 2;
-        cashAmount.textContent = "$".concat(cash.toString());
+        cashAmount.textContent = "CASH: $".concat(cash.toString());
         if (isGameOver()) {
-            alert("Game Over");
-            cash = 100;
+            cashAmount.textContent = "CASH: $".concat(cash.toString(), " You lose!");
+            alert("Game Over - Restart Game");
         }
     }
     else {
         cash -= amount;
-        cashAmount.textContent = "$".concat(cash.toString());
+        cashAmount.textContent = "CASH: $".concat(cash.toString());
         if (isGameOver()) {
-            alert("Game Over");
-            cash = 100;
+            cashAmount.textContent = "CASH: $".concat(cash.toString(), " You lose!");
+            alert("Game Over - Restart Game");
         }
     }
     // Giving some time after placing bet to to deal new cards
@@ -85,4 +97,9 @@ function checkBetResult() {
     }, 3000);
 }
 betButton.addEventListener('click', checkBetResult);
+noBetButton.addEventListener('click', function () {
+    betAmount.value = '0';
+    checkBetResult();
+});
+restartButton.addEventListener('click', location.reload);
 //# sourceMappingURL=index.js.map

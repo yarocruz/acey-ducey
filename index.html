@@ -18,8 +18,8 @@
         }
         #next-card {
             margin: 0 auto;
-            width: 200px;
-            height: 300px;
+            max-width: 150px;
+            max-height: 250px;
             border: 1px solid #222;
         }
         #cash {
@@ -30,9 +30,8 @@
             justify-content: center;
             align-items: center;
             margin: 10px;
-            width: 200px;
-            height: 300px;
-            border: 1px solid #222;
+            max-width: 150px;
+            max-height: 250px;
         }
         input, button {
             margin: 20px auto;
@@ -41,11 +40,16 @@
         }
 
     </style>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
 </head>
 <body>
 <h1>Acey Ducey</h1>
 <a href="rules.html">Rules</a>
 <div id="cash"></div>
+<button class="restart">Restart Game</button>
 <div id="app">
     <img class="first-card card" src="" alt="">
     <img class="second-card card" src="" alt="">
@@ -54,7 +58,7 @@
 <img id="next-card" src="cards/back_of_card.png" alt="">
 
 <input type="number" class="bet-amount" value="0" min="0" max="100">
-<button class="bet-button">Bet</button>
+<button class="bet-button">Bet</button> <button class="no-bet-button">No Bet</button>
 
 <script type="module" src="./dist/cards.js"></script>
 <script type="module" src="./dist/index.js"></script>

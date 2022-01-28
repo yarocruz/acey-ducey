@@ -8,7 +8,9 @@ let firstCard:HTMLImageElement = document.querySelector(".first-card")!;
 let secondCard:HTMLImageElement = document.querySelector(".second-card")!;
 let nextCard:HTMLImageElement = document.querySelector("#next-card")!;
 let betAmount: HTMLInputElement = document.querySelector(".bet-amount")!;
-let betButton = document.querySelector("button")!;
+let betButton = document.querySelector(".bet-button")!;
+let noBetButton = document.querySelector(".no-bet-button")!;
+let restartButton = document.querySelector(".restart")!;
 
 // based on poker rank values
 let suit = [clubs, diamonds, hearts, spades]
@@ -66,29 +68,43 @@ function isGameOver(): boolean {
   return cash <= 0
 }
 
+function isWinner(): boolean {
+    return cash >= 500
+}
+
 function checkBetResult() {
     let next = dealNextCard()
     let amount = bet()
+
+    if (amount < 0 || amount > cash) {
+        alert("You don't have enough cash!")
+        return
+    }
 
     if (next > initialCards[0] && next < initialCards[1] ||
         next < initialCards[0] && next > initialCards[1]
     ) {
         cash += amount
-        cashAmount.textContent = `$${cash.toString()}`
+        cashAmount.textContent = `CASH: $${cash.toString()}`
+
+        if(isWinner()) {
+            alert("You won game")
+        }
+
     } else if (next === initialCards[0] || next === initialCards[1]) {
         cash -= amount * 2
-        cashAmount.textContent = `$${cash.toString()}`
+        cashAmount.textContent = `CASH: $${cash.toString()}`
         if (isGameOver()) {
-            alert("Game Over")
-            cash = 100
+            cashAmount.textContent = `CASH: $${cash.toString()} You lose!`
+            alert("Game Over - Restart Game")
         }
 
     } else {
         cash -= amount
-        cashAmount.textContent = `$${cash.toString()}`
+        cashAmount.textContent = `CASH: $${cash.toString()}`
         if (isGameOver()) {
-            alert("Game Over")
-            cash = 100
+            cashAmount.textContent = `CASH: $${cash.toString()} You lose!`
+            alert("Game Over - Restart Game")
         }
     }
 
@@ -104,4 +120,8 @@ function checkBetResult() {
 }
 
 betButton.addEventListener('click', checkBetResult)
-
+noBetButton.addEventListener('click', () => {
+    betAmount.value = '0'
+    checkBetResult()
+})
+restartButton.addEventListener('click', location.reload)
