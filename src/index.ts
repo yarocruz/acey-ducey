@@ -119,9 +119,11 @@ function checkBetResult() {
     }, 3000)
 }
 
+restartButton.addEventListener('click', window.location.reload)
+
 betButton.addEventListener('click', checkBetResult)
 noBetButton.addEventListener('click', () => {
     betAmount.value = '0'
     checkBetResult()
 })
-restartButton.addEventListener('click', location.reload)
+

@@ -96,10 +96,10 @@ function checkBetResult() {
         nextCard.src = 'cards/back_of_card.png';
     }, 3000);
 }
+restartButton.addEventListener('click', window.location.reload);
 betButton.addEventListener('click', checkBetResult);
 noBetButton.addEventListener('click', function () {
     betAmount.value = '0';
     checkBetResult();
 });
-restartButton.addEventListener('click', location.reload);
 //# sourceMappingURL=index.js.map
