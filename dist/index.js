@@ -11,6 +11,7 @@ var noBetButton = document.querySelector(".no-bet-button");
 var restartButton = document.querySelector(".restart");
 // based on poker rank values
 var suit = [clubs, diamonds, hearts, spades];
+// *This we can probably get rid of
 var cards = ['2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12', '13', '14'];
 function dealInitialCards() {
     // for the suits, we select an index from 0 to 3
@@ -18,13 +19,14 @@ function dealInitialCards() {
     var suitRandomIndex2 = Math.floor(Math.random() * suit.length + 1) - 1;
     // selects an index between 0 - 12, based on cards array length
     var firstRandomIndex = Math.floor(Math.random() * cards.length + 1) - 1;
+    // first card setup
+    firstCard.textContent = suit[suitRandomIndex1][firstRandomIndex].value;
+    firstCard.src = suit[suitRandomIndex1][firstRandomIndex].img;
     if (firstRandomIndex >= 11) {
         // we want to get a slice of the cards array if the index selects a 13 or 14, (index 12 or 13)
         // from the beginning of the array up the that index - 1 so it will skip
         var cardSlice_1 = suit[suitRandomIndex1].slice(0, firstRandomIndex - 1); // if that first index is the number 13(index 11), then the cardSlice is going to be [2, 3, 4, 5, 6, 7, 8, 9, 10, 11]
         var secondRandomIndex_1 = Math.floor((Math.random() * cardSlice_1.length + 1) - 1);
-        firstCard.textContent = suit[suitRandomIndex1][firstRandomIndex].value;
-        firstCard.src = suit[suitRandomIndex1][firstRandomIndex].img;
         secondCard.textContent = cardSlice_1[secondRandomIndex_1].value;
         var img2 = suit[suitRandomIndex2].filter(function (card) { return card.value === cardSlice_1[secondRandomIndex_1].value; });
         secondCard.src = img2[0].img;
@@ -32,8 +34,6 @@ function dealInitialCards() {
     else {
         var cardSlice_2 = suit[suitRandomIndex1].slice(firstRandomIndex + 2);
         var secondRandomIndex_2 = Math.floor((Math.random() * cardSlice_2.length + 1) - 1);
-        firstCard.textContent = cards[firstRandomIndex];
-        firstCard.src = suit[suitRandomIndex1][firstRandomIndex].img;
         secondCard.textContent = cardSlice_2[secondRandomIndex_2].value;
         var img2 = suit[suitRandomIndex2].filter(function (card) { return card.value === cardSlice_2[secondRandomIndex_2].value; });
         secondCard.src = img2[0].img;

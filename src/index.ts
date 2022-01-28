@@ -14,6 +14,7 @@ let restartButton = document.querySelector(".restart")!;
 
 // based on poker rank values
 let suit = [clubs, diamonds, hearts, spades]
+// *This we can probably get rid of
 let cards = ['2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12', '13', '14']
 
 function dealInitialCards() {
@@ -24,28 +25,28 @@ function dealInitialCards() {
     // selects an index between 0 - 12, based on cards array length
     let firstRandomIndex = Math.floor(Math.random() * cards.length + 1) - 1
 
+    // first card setup
+    firstCard.textContent = suit[suitRandomIndex1][firstRandomIndex].value;
+    firstCard.src = suit[suitRandomIndex1][firstRandomIndex].img
+
+    /** we want to get a slice of the cards array if the index selects a 13 or 14, (index 12 or 13)
+    from the beginning of the array up the that index - 1 so it will skip.
+     In other words, if that first index is the number 13(index 12),
+     then the cardSlice is going to be [2, 3, 4, 5, 6, 7, 8, 9, 10, 11]**/
     if (firstRandomIndex >= 11) {
-        // we want to get a slice of the cards array if the index selects a 13 or 14, (index 12 or 13)
-        // from the beginning of the array up the that index - 1 so it will skip
-        let cardSlice = suit[suitRandomIndex1].slice(0, firstRandomIndex - 1) // if that first index is the number 13(index 11), then the cardSlice is going to be [2, 3, 4, 5, 6, 7, 8, 9, 10, 11]
+        let cardSlice = suit[suitRandomIndex1].slice(0, firstRandomIndex - 1)
         let secondRandomIndex = Math.floor((Math.random() * cardSlice.length + 1) - 1)
 
-        firstCard.textContent = suit[suitRandomIndex1][firstRandomIndex].value;
-        firstCard.src = suit[suitRandomIndex1][firstRandomIndex].img
-
         secondCard.textContent = cardSlice[secondRandomIndex].value
-        let img2 = suit[suitRandomIndex2].filter(card => card.value === cardSlice[secondRandomIndex].value)
-        secondCard.src = img2[0].img
+        let card = suit[suitRandomIndex2].filter(card => card.value === cardSlice[secondRandomIndex].value)
+        secondCard.src = card[0].img
     } else {
         let cardSlice = suit[suitRandomIndex1].slice(firstRandomIndex + 2)
         let secondRandomIndex = Math.floor((Math.random() * cardSlice.length + 1) - 1)
 
-        firstCard.textContent = cards[firstRandomIndex];
-        firstCard.src = suit[suitRandomIndex1][firstRandomIndex].img
-
         secondCard.textContent = cardSlice[secondRandomIndex].value
-        let img2 = suit[suitRandomIndex2].filter(card => card.value === cardSlice[secondRandomIndex].value)
-        secondCard.src = img2[0].img
+        let card = suit[suitRandomIndex2].filter(card => card.value === cardSlice[secondRandomIndex].value)
+        secondCard.src = card[0].img
     }
 
     return [Number(firstCard.textContent), Number(secondCard.textContent)]
@@ -76,6 +77,7 @@ function checkBetResult() {
     let next = dealNextCard()
     let amount = bet()
 
+    // don't let user bet money he doesn't have
     if (amount < 0 || amount > cash) {
         alert("You don't have enough cash!")
         return
