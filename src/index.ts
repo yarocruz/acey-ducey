@@ -8,8 +8,8 @@ let firstCard:HTMLImageElement = document.querySelector(".first-card")!;
 let secondCard:HTMLImageElement = document.querySelector(".second-card")!;
 let nextCard:HTMLImageElement = document.querySelector("#next-card")!;
 let betAmount: HTMLInputElement = document.querySelector(".bet-amount")!;
-let betButton = document.querySelector(".bet-button")!;
-let noBetButton = document.querySelector(".no-bet-button")!;
+let betButton:HTMLButtonElement = document.querySelector(".bet-button")!;
+let noBetButton:HTMLButtonElement = document.querySelector(".no-bet-button")!;
 let restartButton = document.querySelector(".restart")!;
 
 // based on poker rank values
@@ -74,6 +74,8 @@ function isWinner(): boolean {
 }
 
 function checkBetResult() {
+    betButton.disabled = true
+    noBetButton.disabled = true
     let next = dealNextCard()
     let amount = bet()
 
@@ -118,6 +120,8 @@ function checkBetResult() {
     // Give the nextCard the back card image after a few milliseconds
     setTimeout(() => {
         nextCard.src = 'cards/back_of_card.png'
+        betButton.disabled = false
+        noBetButton.disabled = false
     }, 3000)
 }
 

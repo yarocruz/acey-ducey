@@ -22,21 +22,23 @@ function dealInitialCards() {
     // first card setup
     firstCard.textContent = suit[suitRandomIndex1][firstRandomIndex].value;
     firstCard.src = suit[suitRandomIndex1][firstRandomIndex].img;
+    /** we want to get a slice of the cards array if the index selects a 13 or 14, (index 12 or 13)
+    from the beginning of the array up the that index - 1 so it will skip.
+     In other words, if that first index is the number 13(index 12),
+     then the cardSlice is going to be [2, 3, 4, 5, 6, 7, 8, 9, 10, 11]**/
     if (firstRandomIndex >= 11) {
-        // we want to get a slice of the cards array if the index selects a 13 or 14, (index 12 or 13)
-        // from the beginning of the array up the that index - 1 so it will skip
-        var cardSlice_1 = suit[suitRandomIndex1].slice(0, firstRandomIndex - 1); // if that first index is the number 13(index 11), then the cardSlice is going to be [2, 3, 4, 5, 6, 7, 8, 9, 10, 11]
+        var cardSlice_1 = suit[suitRandomIndex1].slice(0, firstRandomIndex - 1);
         var secondRandomIndex_1 = Math.floor((Math.random() * cardSlice_1.length + 1) - 1);
         secondCard.textContent = cardSlice_1[secondRandomIndex_1].value;
-        var img2 = suit[suitRandomIndex2].filter(function (card) { return card.value === cardSlice_1[secondRandomIndex_1].value; });
-        secondCard.src = img2[0].img;
+        var card = suit[suitRandomIndex2].filter(function (card) { return card.value === cardSlice_1[secondRandomIndex_1].value; });
+        secondCard.src = card[0].img;
     }
     else {
         var cardSlice_2 = suit[suitRandomIndex1].slice(firstRandomIndex + 2);
         var secondRandomIndex_2 = Math.floor((Math.random() * cardSlice_2.length + 1) - 1);
         secondCard.textContent = cardSlice_2[secondRandomIndex_2].value;
-        var img2 = suit[suitRandomIndex2].filter(function (card) { return card.value === cardSlice_2[secondRandomIndex_2].value; });
-        secondCard.src = img2[0].img;
+        var card = suit[suitRandomIndex2].filter(function (card) { return card.value === cardSlice_2[secondRandomIndex_2].value; });
+        secondCard.src = card[0].img;
     }
     return [Number(firstCard.textContent), Number(secondCard.textContent)];
 }
@@ -57,8 +59,11 @@ function isWinner() {
     return cash >= 500;
 }
 function checkBetResult() {
+    betButton.disabled = true;
+    noBetButton.disabled = true;
     var next = dealNextCard();
     var amount = bet();
+    // don't let user bet money he doesn't have
     if (amount < 0 || amount > cash) {
         alert("You don't have enough cash!");
         return;
@@ -94,6 +99,8 @@ function checkBetResult() {
     // Give the nextCard the back card image after a few milliseconds
     setTimeout(function () {
         nextCard.src = 'cards/back_of_card.png';
+        betButton.disabled = false;
+        noBetButton.disabled = false;
     }, 3000);
 }
 restartButton.addEventListener('click', window.location.reload.bind(window.location));

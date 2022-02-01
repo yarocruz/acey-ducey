@@ -26,5 +26,6 @@ The original program author was Bill Palmby of Prairie View, Illinois.
 - [x] Restart or reload after losing all cash
 - [x] Check for when the bet amount goes over (or under edge case here) current cash amount
 - [x] add second page explaining the rules
+- [x] Figure out how to stop the edge case of speed clicking on bet
 
 
