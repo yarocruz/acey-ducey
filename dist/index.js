@@ -1,8 +1,4 @@
 import { clubs, diamonds, hearts, spades } from "./cards.js";
-import JSConfetti from "js-confetti";
-var jsConfetti = new JSConfetti();
-jsConfetti.addConfetti()
-    .then(function () { return console.log('Confetti animation completed!'); });
 var cash = 100;
 var cashAmount = document.getElementById("cash");
 cashAmount.textContent = "CASH: $".concat(cash.toString());
