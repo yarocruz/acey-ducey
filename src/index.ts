@@ -1,4 +1,12 @@
 import {clubs, diamonds, hearts, spades} from "./cards.js";
+
+import JSConfetti from "js-confetti";
+
+const jsConfetti = new JSConfetti()
+
+jsConfetti.addConfetti()
+    .then(() => console.log('Confetti animation completed!'))
+
 let cash = 100;
 
 let cashAmount = document.getElementById("cash")!;
@@ -80,8 +88,18 @@ function checkBetResult() {
     let amount = bet()
 
     // don't let user bet money he doesn't have
-    if (amount < 0 || amount > cash) {
-        alert("You don't have enough cash!")
+    if (amount > cash) {
+        alert(`${amount} is more than the current cash you have!`)
+        betButton.disabled = false
+        noBetButton.disabled = false
+        nextCard.src = 'cards/back_of_card.png'
+        return
+    } else if (amount < 0) {
+        alert(`You can't bet a negative dollars!`)
+        betButton.disabled = false
+        noBetButton.disabled = false
+        betAmount.value = '0'
+        nextCard.src = 'cards/back_of_card.png'
         return
     }
 
@@ -93,6 +111,9 @@ function checkBetResult() {
 
         if(isWinner()) {
             alert("You won game")
+            betButton.disabled = true
+            noBetButton.disabled = true
+            return
         }
 
     } else if (next === initialCards[0] || next === initialCards[1]) {
@@ -101,6 +122,9 @@ function checkBetResult() {
         if (isGameOver()) {
             cashAmount.textContent = `CASH: $${cash.toString()} You lose!`
             alert("Game Over - Restart Game")
+            betButton.disabled = true
+            noBetButton.disabled = true
+            return
         }
 
     } else {
@@ -109,6 +133,9 @@ function checkBetResult() {
         if (isGameOver()) {
             cashAmount.textContent = `CASH: $${cash.toString()} You lose!`
             alert("Game Over - Restart Game")
+            betButton.disabled = true
+            noBetButton.disabled = true
+            return;
         }
     }
 

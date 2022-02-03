@@ -1,5 +1,8 @@
 {
   "devDependencies": {
     "typescript": "^4.5.5"
+  },
+  "dependencies": {
+    "js-confetti": "^0.10.2"
   }
 }

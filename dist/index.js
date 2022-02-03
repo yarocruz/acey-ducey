@@ -1,4 +1,8 @@
 import { clubs, diamonds, hearts, spades } from "./cards.js";
+import JSConfetti from "js-confetti";
+var jsConfetti = new JSConfetti();
+jsConfetti.addConfetti()
+    .then(function () { return console.log('Confetti animation completed!'); });
 var cash = 100;
 var cashAmount = document.getElementById("cash");
 cashAmount.textContent = "CASH: $".concat(cash.toString());
@@ -64,8 +68,19 @@ function checkBetResult() {
     var next = dealNextCard();
     var amount = bet();
     // don't let user bet money he doesn't have
-    if (amount < 0 || amount > cash) {
-        alert("You don't have enough cash!");
+    if (amount > cash) {
+        alert("".concat(amount, " is more than the current cash you have!"));
+        betButton.disabled = false;
+        noBetButton.disabled = false;
+        nextCard.src = 'cards/back_of_card.png';
+        return;
+    }
+    else if (amount < 0) {
+        alert("You can't bet a negative dollars!");
+        betButton.disabled = false;
+        noBetButton.disabled = false;
+        betAmount.value = '0';
+        nextCard.src = 'cards/back_of_card.png';
         return;
     }
     if (next > initialCards[0] && next < initialCards[1] ||
@@ -74,6 +89,9 @@ function checkBetResult() {
         cashAmount.textContent = "CASH: $".concat(cash.toString());
         if (isWinner()) {
             alert("You won game");
+            betButton.disabled = true;
+            noBetButton.disabled = true;
+            return;
         }
     }
     else if (next === initialCards[0] || next === initialCards[1]) {
@@ -82,6 +100,9 @@ function checkBetResult() {
         if (isGameOver()) {
             cashAmount.textContent = "CASH: $".concat(cash.toString(), " You lose!");
             alert("Game Over - Restart Game");
+            betButton.disabled = true;
+            noBetButton.disabled = true;
+            return;
         }
     }
     else {
@@ -90,6 +111,9 @@ function checkBetResult() {
         if (isGameOver()) {
             cashAmount.textContent = "CASH: $".concat(cash.toString(), " You lose!");
             alert("Game Over - Restart Game");
+            betButton.disabled = true;
+            noBetButton.disabled = true;
+            return;
         }
     }
     // Giving some time after placing bet to to deal new cards
